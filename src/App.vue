@@ -9,12 +9,12 @@ import img6 from './assets/img6.jpeg'
 
 const gridColumns = ['nombre', 'precio', 'img']
 const gridData = [
-  { nombre: 'Audifono', precio: 30000, stock: 10, img: img1 },
-  { nombre: 'Mouse', precio: 20000, stock: 10, img: img2 },
+  { nombre: 'Audifono', precio: 30000, stock: 3, img: img1 },
+  { nombre: 'Mouse', precio: 20000, stock: 5, img: img2 },
   { nombre: 'Teclado', precio: 15000, stock: 10, img: img3 },
-  { nombre: 'Gabinete', precio: 35000, stock: 10, img: img4 },
-  { nombre: 'Pantalla', precio: 45000, stock: 10, img: img5 },
-  { nombre: 'Silla', precio: 55000, stock: 10, img: img6 }
+  { nombre: 'Gabinete', precio: 35000, stock: 4, img: img4 },
+  { nombre: 'Pantalla', precio: 175000, stock: 3, img: img5 },
+  { nombre: 'Silla', precio: 150000, stock: 2, img: img6 }
 ]
 </script>
 
