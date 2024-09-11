@@ -10,10 +10,6 @@ const filteredData = computed(() => {
 
   return data
 })
-function capitalize(str) {
-  return str.charAt(0).toUpperCase() + str.slice(1)
-}
-
 function agregar1Carrito(item) {
   let marca = false
   let stockLess = false
@@ -68,66 +64,47 @@ const totalPrice = computed(() => {
 })
 </script>
 <template>
-  <div>
-    <!-- Product Table -->
-    <h2>Productos Disponibles</h2>
-    <table v-if="filteredData.length">
-      <thead>
-        <tr>
-          <th v-for="(item, index) in columns" :key="index">
-            {{ capitalize(item) }}
-          </th>
-          <th>Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="(item1, index) in filteredData" :key="index">
-          <td v-for="(item, index) in columns" :key="index">
-            <!-- Handle the image field specifically -->
-            <img
-              v-if="item === 'img'"
-              :src="item1.img"
-              :alt="`Imagen ${index + 1}`"
-              width="100"
-              height="100"
-            />
-            <!-- Display other fields normally -->
-            <span v-else>{{ item1[item] }}</span>
-          </td>
-          <td>
-            <button @click="agregar1Carrito(item1)">Agregar al carrito</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <p v-else>No matches found.</p>
-    <!-- Cart Table -->
-    <h2>Carrito</h2>
-    <table v-if="cartItems.length">
-      <thead>
-        <tr>
-          <th>Nombre</th>
-          <th>Precio</th>
-          <th>Cantidad</th>
-          <th>Imagen</th>
-          <th>Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="(item, index) in cartItems" :key="index">
-          <td>{{ item.nombre }}</td>
-          <td>{{ item.precio }}</td>
-          <td>{{ item.quantity }}</td>
-          <td>
-            <img :src="item.img" :alt="`Carrito Imagen ${index + 1}`" width="100" height="100" />
-          </td>
-          <td><button @click="delete1Item(item)">Remover del carrito</button></td>
-        </tr>
-      </tbody>
-    </table>
-    <p v-else>El carrito está vacío.</p>
+  <div class="container">
+    <div class="row">
+      <!-- Left column: Available products -->
+      <div class="col-md-6">
+        <h2 class="text-center mb-4">Productos disponibles</h2>
+        <div v-for="(item1, index) in filteredData" :key="index" class="mb-3 card">
+          <div class="d-flex align-items-center">
+            <img :src="item1.img" alt="product image" width="80" height="80" class="me-3" />
+            <div class="me-auto">
+              <h5>{{ item1.nombre }} - Precio $: {{ item1.precio }}</h5>
+            </div>
+            <button class="btn btn-primary" @click="agregar1Carrito(item1)">
+              <i class="bi bi-cart"></i> Agregar al carrito
+            </button>
+          </div>
+        </div>
+      </div>
 
-    <!-- Total Price -->
-    <h3>Total: {{ totalPrice }}</h3>
+      <!-- Right column: Cart items -->
+      <div class="col-md-6">
+        <h2 class="text-center mb-4">Productos en el carrito</h2>
+        <div v-if="cartItems.length">
+          <div v-for="(item, index) in cartItems" :key="index" class="mb-3 card">
+            <div class="d-flex align-items-center">
+              <img :src="item.img" alt="cart item image" width="80" height="80" class="me-3" />
+              <div class="me-auto">
+                <h5>{{ item.nombre }} - Cantidad: {{ item.quantity }}</h5>
+              </div>
+              <button class="btn btn-danger" @click="delete1Item(item)">
+                <i class="bi bi-trash"></i> Remover del carrito
+              </button>
+            </div>
+          </div>
+        </div>
+        <p v-else>El carrito está vacío.</p>
+      </div>
+    </div>
+
+    <!-- Total price -->
+    <div class="mt-5 text-center">
+      <h3>Total a pagar: ${{ totalPrice }}</h3>
+    </div>
   </div>
 </template>
